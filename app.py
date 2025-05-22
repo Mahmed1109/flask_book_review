@@ -19,3 +19,6 @@ def add_book():
         return redirect(url_for('index'))
 
     return render_template('add_book.html')
+
+if __name__ == '__main__':
+    app.run(debug=True)
