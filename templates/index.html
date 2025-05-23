@@ -1,0 +1,22 @@
+<!doctype html>
+<html>
+
+<head>
+    <title>Book Reviews</title>
+</head>
+
+<body>
+    <h1>Book Reviews</h1>
+    <a href="{{ url_for('add_book') }}">Add New Book</a>
+    <ul>
+        {% for book in books %}
+        <li><strong>{{ book.title }}</strong> by {{ book.author }}<br>
+            Review: {{ book.review }}
+        </li>
+        {% else %}
+        <li>No books added yet.</li>
+        {% endfor %}
+    </ul>
+</body>
+
+</html>
