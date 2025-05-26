@@ -1,0 +1,25 @@
+<!doctype html>
+<html>
+
+<head>
+    <title>Add Book</title>
+</head>
+
+<body>
+    <h1>Add a New Book Review</h1>
+    <form method="post">
+        Title:<br>
+        <input type="text" name="title" required><br><br>
+
+        Author:<br>
+        <input type="text" name="author" required><br><br>
+
+        Review:<br>
+        <textarea name="review" required></textarea><br><br>
+
+        <input type="submit" value="Add Review">
+    </form>
+    <a href="{{ url_for('index') }}">Back to list</a>
+</body>
+
+</html>
