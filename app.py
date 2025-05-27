@@ -1,7 +1,7 @@
 from flask import Flask, render_template, request, redirect, url_for
+from datetime import datetime
 
 app = Flask(__name__)
-
 books = []
 
 @app.route('/')
@@ -14,8 +14,15 @@ def add_book():
         title = request.form['title']
         author = request.form['author']
         review = request.form['review']
+        date_posted = datetime.now().strftime('%Y-%m-%d %H:%M')
 
-        books.append({'title': title, 'author': author, 'review': review})
+        books.append({
+            'title': title,
+            'author': author,
+            'review': review,
+            'date': date_posted
+        })
+
         return redirect(url_for('index'))
 
     return render_template('add_book.html')

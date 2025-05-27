@@ -1,4 +1,4 @@
-<!doctype html>
+<!DOCTYPE html>
 <html>
 
 <head>
@@ -10,11 +10,13 @@
     <a href="{{ url_for('add_book') }}">Add New Book</a>
     <ul>
         {% for book in books %}
-        <li><strong>{{ book.title }}</strong> by {{ book.author }}<br>
-            Review: {{ book.review }}
+        <li>
+            <strong>{{ book.title }}</strong> by {{ book.author }}<br>
+            Review: {{ book.review }}<br>
+            <em>Posted on {{ book.date }}</em>
         </li>
         {% else %}
-        <li>No books added yet.</li>
+        <p>No books yet. Be the first to add one!</p>
         {% endfor %}
     </ul>
 </body>
