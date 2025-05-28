@@ -3,11 +3,41 @@
 
 <head>
     <title>Book Reviews</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 600px;
+            margin: auto;
+            padding: 20px;
+        }
+
+        h1,
+        h2 {
+            color: #333;
+        }
+
+        a {
+            text-decoration: none;
+            color: #007BFF;
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        li {
+            margin-bottom: 20px;
+            padding: 10px;
+            border-bottom: 1px solid #ccc;
+        }
+    </style>
 </head>
 
 <body>
     <h1>Book Reviews</h1>
     <a href="{{ url_for('add_book') }}">Add New Book</a>
+    <h2>Total Reviews: {{ books | length }}</h2>
     <ul>
         {% for book in books %}
         <li>
