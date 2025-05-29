@@ -27,5 +27,21 @@ def add_book():
 
     return render_template('add_book.html')
 
+@app.route('/edit/<int:book_id>', methods=['GET', 'POST'])
+def edit_book(book_id):
+    if book_id < 0 or book_id >= len(books):
+        return "Book not found", 404
+
+    book = books[book_id]
+
+    if request.method == 'POST':
+        book['title'] = request.form['title']
+        book['author'] = request.form['author']
+        book['review'] = request.form['review']
+        book['date'] = datetime.now().strftime('%Y-%m-%d %H:%M')
+        return redirect(url_for('index'))
+
+    return render_template('edit_book.html', book=book, book_id=book_id)
+
 if __name__ == '__main__':
     app.run(debug=True)
