@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Edit Book Review</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 600px;
+            margin: auto;
+            padding: 20px;
+        }
+
+        h1 {
+            color: #333;
+        }
+
+        form input,
+        form textarea {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+        }
+
+        button {
+            padding: 8px 16px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Edit Book Review</h1>
+    <form method="POST">
+        <label>Title:</label><br>
+        <input type="text" name="title" value="{{ book.title }}" required><br>
+
+        <label>Author:</label><br>
+        <input type="text" name="author" value="{{ book.author }}" required><br>
+
+        <label>Review:</label><br>
+        <textarea name="review" required>{{ book.review }}</textarea><br>
+
+        <button type="submit">Update</button>
+    </form>
+</body>
+
+</html>
