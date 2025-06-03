@@ -43,5 +43,11 @@ def edit_book(book_id):
 
     return render_template('edit_book.html', book=book, book_id=book_id)
 
+@app.route('/delete/<int:book_id>', methods=['POST'])
+def delete_book(book_id):
+    if 0 <= book_id < len(books):
+        del books[book_id]
+    return redirect(url_for('index'))
+
 if __name__ == '__main__':
     app.run(debug=True)
