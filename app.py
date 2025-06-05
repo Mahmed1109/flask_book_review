@@ -6,7 +6,16 @@ books = []
 
 @app.route('/')
 def index():
-    return render_template('index.html', books=books)
+    query = request.args.get('q', '').lower()
+    if query:
+        filtered_books = [
+            book for book in books
+            if query in book['title'].lower() or query in book['author'].lower()
+        ]
+    else:
+        filtered_books = books
+
+    return render_template('index.html', books=filtered_books, query=query)
 
 @app.route('/add', methods=['GET', 'POST'])
 def add_book():
