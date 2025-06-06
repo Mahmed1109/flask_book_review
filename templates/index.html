@@ -6,7 +6,7 @@
     <style>
         body {
             font-family: Arial, sans-serif;
-            max-width: 600px;
+            max-width: 700px;
             margin: auto;
             padding: 20px;
         }
@@ -32,16 +32,32 @@
             border-bottom: 1px solid #ccc;
         }
 
-        form {
+        form.inline {
             display: inline;
         }
 
+        form.search {
+            margin-bottom: 20px;
+        }
+
+        input[type="text"] {
+            padding: 6px;
+            width: 60%;
+        }
+
         button {
-            background: none;
+            padding: 6px 12px;
+            background-color: #007BFF;
+            color: white;
             border: none;
-            color: red;
             cursor: pointer;
-            font-size: 0.9em;
+        }
+
+        button.delete {
+            background: none;
+            color: red;
+            border: none;
+            cursor: pointer;
         }
     </style>
 </head>
@@ -49,7 +65,14 @@
 <body>
     <h1>Book Reviews</h1>
     <a href="{{ url_for('add_book') }}">Add New Book</a>
+
+    <form method="GET" action="{{ url_for('index') }}" class="search">
+        <input type="text" name="q" placeholder="Search by title or author..." value="{{ query }}">
+        <button type="submit">Search</button>
+    </form>
+
     <h2>Total Reviews: {{ books | length }}</h2>
+
     <ul>
         {% for book in books %}
         <li>
@@ -57,13 +80,13 @@
             Review: {{ book.review }}<br>
             <em>Posted on {{ book.date }}</em><br>
             <a href="{{ url_for('edit_book', book_id=loop.index0) }}">Edit</a> |
-            <form action="{{ url_for('delete_book', book_id=loop.index0) }}" method="POST"
+            <form action="{{ url_for('delete_book', book_id=loop.index0) }}" method="POST" class="inline"
                 onsubmit="return confirm('Delete this review?');">
-                <button type="submit">Delete</button>
+                <button type="submit" class="delete">Delete</button>
             </form>
         </li>
         {% else %}
-        <p>No books yet. Be the first to add one!</p>
+        <p>No reviews found.</p>
         {% endfor %}
     </ul>
 </body>
