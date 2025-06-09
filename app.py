@@ -1,8 +1,23 @@
 from flask import Flask, render_template, request, redirect, url_for
 from datetime import datetime
+import json
+import os
 
 app = Flask(__name__)
+DATA_FILE = 'books.json'
 books = []
+
+
+def load_books():
+    global books
+    if os.path.exists(DATA_FILE):
+        with open(DATA_FILE, 'r') as f:
+            books = json.load(f)
+
+
+def save_books():
+    with open(DATA_FILE, 'w') as f:
+        json.dump(books, f, indent=2)
 
 @app.route('/')
 def index():
@@ -31,7 +46,7 @@ def add_book():
             'review': review,
             'date': date_posted
         })
-
+        save_books()
         return redirect(url_for('index'))
 
     return render_template('add_book.html')
@@ -48,6 +63,7 @@ def edit_book(book_id):
         book['author'] = request.form['author']
         book['review'] = request.form['review']
         book['date'] = datetime.now().strftime('%Y-%m-%d %H:%M')
+        save_books()
         return redirect(url_for('index'))
 
     return render_template('edit_book.html', book=book, book_id=book_id)
@@ -56,7 +72,9 @@ def edit_book(book_id):
 def delete_book(book_id):
     if 0 <= book_id < len(books):
         del books[book_id]
+        save_books()
     return redirect(url_for('index'))
 
 if __name__ == '__main__':
+    load_books()
     app.run(debug=True)
