@@ -77,6 +77,7 @@
         {% for book in books %}
         <li>
             <strong>{{ book.title }}</strong> by {{ book.author }}<br>
+            Rating: {{ "⭐" * book.rating }}<br>
             Review: {{ book.review }}<br>
             <em>Posted on {{ book.date }}</em><br>
             <a href="{{ url_for('edit_book', book_id=loop.index0) }}">Edit</a> |
@@ -85,6 +86,7 @@
                 <button type="submit" class="delete">Delete</button>
             </form>
         </li>
+
         {% else %}
         <p>No reviews found.</p>
         {% endfor %}
