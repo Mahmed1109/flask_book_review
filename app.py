@@ -30,10 +30,17 @@ def index():
             if query in book['title'].lower() or query in book['author'].lower()
         ]
 
+    def parse_date(book):
+        return datetime.strptime(book.get('date', ''), '%Y-%m-%d %H:%M')
+
     if sort == 'high':
         filtered_books = sorted(filtered_books, key=lambda x: x.get('rating', 0), reverse=True)
     elif sort == 'low':
         filtered_books = sorted(filtered_books, key=lambda x: x.get('rating', 0))
+    elif sort == 'date_new':
+        filtered_books = sorted(filtered_books, key=parse_date, reverse=True)
+    elif sort == 'date_old':
+        filtered_books = sorted(filtered_books, key=parse_date)
 
     return render_template('index.html', books=filtered_books, query=query, sort=sort)
 
