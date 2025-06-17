@@ -40,9 +40,10 @@
             margin-bottom: 20px;
         }
 
-        input[type="text"] {
+        input[type="text"],
+        select {
             padding: 6px;
-            width: 60%;
+            margin-right: 10px;
         }
 
         button {
@@ -68,7 +69,14 @@
 
     <form method="GET" action="{{ url_for('index') }}" class="search">
         <input type="text" name="q" placeholder="Search by title or author..." value="{{ query }}">
-        <button type="submit">Search</button>
+        <select name="sort">
+            <option value="">Sort by</option>
+            <option value="high" {% if sort=='high' %}selected{% endif %}>Rating: High to Low</option>
+            <option value="low" {% if sort=='low' %}selected{% endif %}>Rating: Low to High</option>
+            <option value="date_new" {% if sort=='date_new' %}selected{% endif %}>Date: Newest</option>
+            <option value="date_old" {% if sort=='date_old' %}selected{% endif %}>Date: Oldest</option>
+        </select>
+        <button type="submit">Apply</button>
     </form>
 
     <h2>Total Reviews: {{ books | length }}</h2>
@@ -86,7 +94,6 @@
                 <button type="submit" class="delete">Delete</button>
             </form>
         </li>
-
         {% else %}
         <p>No reviews found.</p>
         {% endfor %}
