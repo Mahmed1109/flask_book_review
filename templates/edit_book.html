@@ -3,31 +3,76 @@
 
 <head>
     <title>Edit Book Review</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 600px;
+            margin: auto;
+            padding: 20px;
+        }
+
+        h1 {
+            color: #333;
+        }
+
+        label {
+            display: block;
+            margin-top: 10px;
+            font-weight: bold;
+        }
+
+        input[type="text"],
+        textarea,
+        select {
+            width: 100%;
+            padding: 8px;
+            margin-top: 4px;
+            box-sizing: border-box;
+        }
+
+        button {
+            margin-top: 15px;
+            padding: 10px 15px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        a {
+            display: inline-block;
+            margin-top: 15px;
+            text-decoration: none;
+            color: #007BFF;
+        }
+    </style>
 </head>
 
 <body>
     <h1>Edit Book</h1>
     <form method="POST">
-        <label>Title:</label><br>
-        <input type="text" name="title" value="{{ book.title }}" required><br>
+        <label>Title:</label>
+        <input type="text" name="title" value="{{ book.title }}" required>
 
-        <label>Author:</label><br>
-        <input type="text" name="author" value="{{ book.author }}" required><br>
+        <label>Author:</label>
+        <input type="text" name="author" value="{{ book.author }}" required>
 
-        <label>Review:</label><br>
-        <textarea name="review" required>{{ book.review }}</textarea><br>
+        <label>Review:</label>
+        <textarea name="review" required>{{ book.review }}</textarea>
 
-        <label>Rating:</label><br>
+        <label>Rating:</label>
         <select name="rating" required>
             {% for i in range(5, 0, -1) %}
             <option value="{{ i }}" {% if book.rating==i %}selected{% endif %}>
                 {{ "⭐" * i }}
             </option>
             {% endfor %}
-        </select><br><br>
+        </select>
 
         <button type="submit">Save</button>
     </form>
+
+    <a href="{{ url_for('index') }}">← Back to Reviews</a>
 </body>
 
 </html>
