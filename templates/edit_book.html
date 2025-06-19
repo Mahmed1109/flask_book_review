@@ -9,10 +9,23 @@
             max-width: 600px;
             margin: auto;
             padding: 20px;
+            background-color: var(--bg);
+            color: var(--text);
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        :root {
+            --bg: #ffffff;
+            --text: #000000;
+        }
+
+        body.dark {
+            --bg: #1e1e1e;
+            --text: #f0f0f0;
         }
 
         h1 {
-            color: #333;
+            color: inherit;
         }
 
         label {
@@ -28,6 +41,9 @@
             padding: 8px;
             margin-top: 4px;
             box-sizing: border-box;
+            background-color: inherit;
+            color: inherit;
+            border: 1px solid #ccc;
         }
 
         button {
@@ -45,10 +61,21 @@
             text-decoration: none;
             color: #007BFF;
         }
+
+        .toggle {
+            float: right;
+            margin-bottom: 10px;
+        }
     </style>
 </head>
 
 <body>
+    <div class="toggle">
+        <label>
+            <input type="checkbox" id="modeToggle"> Dark Mode
+        </label>
+    </div>
+
     <h1>Edit Book</h1>
     <form method="POST">
         <label>Title:</label>
@@ -73,6 +100,21 @@
     </form>
 
     <a href="{{ url_for('index') }}">← Back to Reviews</a>
+
+    <script>
+        const toggle = document.getElementById('modeToggle');
+        const body = document.body;
+
+        toggle.addEventListener('change', () => {
+            body.classList.toggle('dark', toggle.checked);
+            localStorage.setItem('darkMode', toggle.checked);
+        });
+
+        if (localStorage.getItem('darkMode') === 'true') {
+            toggle.checked = true;
+            body.classList.add('dark');
+        }
+    </script>
 </body>
 
 </html>
