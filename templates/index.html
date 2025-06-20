@@ -9,11 +9,18 @@
             max-width: 700px;
             margin: auto;
             padding: 20px;
+            background-color: white;
+            color: black;
+        }
+
+        body.dark {
+            background-color: #121212;
+            color: #f0f0f0;
         }
 
         h1,
         h2 {
-            color: #333;
+            color: inherit;
         }
 
         a {
@@ -60,10 +67,31 @@
             border: none;
             cursor: pointer;
         }
+
+        .toggle {
+            text-align: right;
+            margin-bottom: 10px;
+        }
+
+        body.dark a {
+            color: #66b2ff;
+        }
+
+        body.dark button.delete {
+            color: #ff7070;
+        }
+
+        body.dark li {
+            border-bottom: 1px solid #444;
+        }
     </style>
 </head>
 
 <body>
+    <div class="toggle">
+        <label><input type="checkbox" id="modeToggle"> Dark Mode</label>
+    </div>
+
     <h1>Book Reviews</h1>
     <a href="{{ url_for('add_book') }}">Add New Book</a>
 
@@ -98,6 +126,21 @@
         <p>No reviews found.</p>
         {% endfor %}
     </ul>
+
+    <script>
+        const toggle = document.getElementById('modeToggle');
+        const body = document.body;
+
+        toggle.addEventListener('change', () => {
+            body.classList.toggle('dark', toggle.checked);
+            localStorage.setItem('darkMode', toggle.checked);
+        });
+
+        if (localStorage.getItem('darkMode') === 'true') {
+            toggle.checked = true;
+            body.classList.add('dark');
+        }
+    </script>
 </body>
 
 </html>
