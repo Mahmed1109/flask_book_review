@@ -3,31 +3,107 @@
 
 <head>
     <title>Add Book Review</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 600px;
+            margin: auto;
+            padding: 20px;
+            background-color: white;
+            color: black;
+        }
+
+        body.dark {
+            background-color: #121212;
+            color: #f0f0f0;
+        }
+
+        label {
+            display: block;
+            margin-top: 10px;
+            font-weight: bold;
+        }
+
+        input[type="text"],
+        textarea,
+        select {
+            width: 100%;
+            padding: 8px;
+            margin-top: 4px;
+            box-sizing: border-box;
+        }
+
+        button {
+            margin-top: 15px;
+            padding: 10px 15px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        a {
+            display: inline-block;
+            margin-top: 15px;
+            text-decoration: none;
+            color: #007BFF;
+        }
+
+        .toggle {
+            text-align: right;
+            margin-bottom: 10px;
+        }
+
+        body.dark a {
+            color: #66b2ff;
+        }
+    </style>
 </head>
 
 <body>
+    <div class="toggle">
+        <label><input type="checkbox" id="modeToggle"> Dark Mode</label>
+    </div>
+
     <h1>Add a New Book</h1>
     <form method="POST">
-        <label>Title:</label><br>
-        <input type="text" name="title" required><br>
+        <label>Title:</label>
+        <input type="text" name="title" required>
 
-        <label>Author:</label><br>
-        <input type="text" name="author" required><br>
+        <label>Author:</label>
+        <input type="text" name="author" required>
 
-        <label>Review:</label><br>
-        <textarea name="review" required></textarea><br>
+        <label>Review:</label>
+        <textarea name="review" required></textarea>
 
-        <label>Rating:</label><br>
+        <label>Rating:</label>
         <select name="rating" required>
             <option value="5">⭐⭐⭐⭐⭐</option>
             <option value="4">⭐⭐⭐⭐</option>
             <option value="3">⭐⭐⭐</option>
             <option value="2">⭐⭐</option>
             <option value="1">⭐</option>
-        </select><br><br>
+        </select>
 
         <button type="submit">Submit</button>
     </form>
+
+    <a href="{{ url_for('index') }}">← Back to Reviews</a>
+
+    <script>
+        const toggle = document.getElementById('modeToggle');
+        const body = document.body;
+
+        toggle.addEventListener('change', () => {
+            body.classList.toggle('dark', toggle.checked);
+            localStorage.setItem('darkMode', toggle.checked);
+        });
+
+        if (localStorage.getItem('darkMode') === 'true') {
+            toggle.checked = true;
+            body.classList.add('dark');
+        }
+    </script>
 </body>
 
 </html>
